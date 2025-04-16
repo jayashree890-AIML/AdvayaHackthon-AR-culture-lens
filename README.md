@@ -16,19 +16,21 @@ Email: jayashreeperiyaswamy@gmail.com
 
 Phone: 8904830207
 
+
 Team Members:
 
 Jayashree P
-
 
 Pratheek V
 
 Sanjay V
 
 
+
 Problem Statement
 
 AR Culture Lens enhances cultural learning by offering immersive and interactive experiences through...
+
 
 Let's Get Started
 
@@ -47,6 +49,7 @@ Let's keep it fair, fun, and impactful!
 Good luck, Team Bug Busters! Happy coding!
 
 If you need any support during the hackathon, don't hesitate to reach out to the co-ordinators.
+
 
 Cheers,
 
