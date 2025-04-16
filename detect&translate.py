@@ -183,3 +183,6 @@ if __name__ == '__main__':
     else:
         app.run(debug=True)
 
+
+
+we should add photos of monuments and their info as an inupt for this code it will predict the landmark and translate the languages
