@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Landmark Detection</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    .error {
+      color: red;
+    }
+    .success {
+      color: green;
+    }
+    audio {
+      width: 100%;
+      margin-top: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📸 Landmark Detection</h1>
+    <form id="uploadForm">
+        <input type="file" name="image" accept="image/*" required><br><br>
+        <input type="file" name="textfile" accept=".txt" required><br><br>
+        <label for="lang">Language:</label>
+        <select name="lang">
+          <option value="ta">Tamil</option>
+          <option value="hi">Hindi</option>
+          <option value="en">English</option>
+        </select><br><br>
+        <button type="submit">Detect & Translate</button>
+      </form>
+    
+
+    <div id="result" style="margin-top:20px;"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById("uploadForm");
+    const resultDiv = document.getElementById("result");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      resultDiv.innerHTML = "⏳ Processing...";
+
+      const formData = new FormData(form);
+
+      try {
+        const res = await fetch("http://localhost:8000/api/detect", {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await res.json();
+
+        if (data.landmark === "Unknown") {
+          resultDiv.innerHTML = `<p class="error">❌ No recognizable landmark detected.</p>`;
+        } else {
+          resultDiv.innerHTML = `
+            <p><strong>🏛 Landmark:</strong> ${data.landmark}</p>
+            <p><strong>🌐 Translation:</strong> ${data.translation}</p>
+            <audio controls src="http://localhost:8000/uploads/${data.audio_file}"></audio>
+          `;
+        }
+      } catch (err) {
+        console.error(err);
+        resultDiv.innerHTML = `<p class="error">❌ Error: Failed to connect to backend.</p>`;
+      }
+    });
+  </script>
+</body>
+</html>
